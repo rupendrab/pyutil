@@ -42,4 +42,11 @@ def buildArrayPreOrderTraversal(root, arr):
     buildArrayPreOrderTraversal(root.right, arr)
   arr.append(root.val)
 
-def 
+def buildArrayInOrderTraversal(root, arr):
+  if (root.left):
+    buildArrayInOrderTraversal(root.left, arr)
+  arr.append(root.val)
+  if (root.right):
+    buildArrayInOrderTraversal(root.right, arr)
+
+
