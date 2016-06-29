@@ -16,4 +16,5 @@ from sklearn.linear_model import LinearRegression
 model = LinearRegression()
 model.fit(X, y)
 print("A 12"" inch pizza should cost: $%.2f" % model.predict([[12]])[0])
-
+print(model.coef_)
+print(model.intercept_)
