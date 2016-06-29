@@ -48,4 +48,18 @@ def buildArrayInOrderTraversal(root, arr):
   if (root.right):
     buildArrayInOrderTraversal(root.right, arr)
 
-
+def findVal(root, val):
+  if (val == root.val):
+    return true
+  elif (val > root.val):
+    if (root.right):
+      return findVal(root.right, val)
+    else:
+      return False
+    elif (root.val < val):
+      if (root.left):
+        return findVal(root.left, val)
+      else:
+        return False
+        
+        
