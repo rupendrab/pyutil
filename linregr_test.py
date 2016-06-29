@@ -75,6 +75,7 @@ plt.scatter(X_train, y_train)
 
 quadratic_featurizer = PolynomialFeatures(degree=2)
 X_train_quadratic = quadratic_featurizer.fit_transform(X_train)
+X_test_quadratic = quadratic_featurizer.fit_transform(X_test)
 xx_quadratic = quadratic_featurizer.fit_transform(xx.reshape(xx.shape[0], 1))
 
 regressor_quadratic = LinearRegression()
@@ -87,3 +88,10 @@ plt.ylabel('Price in dollars')
 plt.axis([0,25,0,25])
 plt.grid(True)
 plt.show()
+
+print(X_train)
+print(X_train_quadratic)
+print(X_test)
+print(X_test_quadratic)
+print('Simple linear regression r-squared: %.4f' % regressor.score(X_test, y_test))
+print('Quadratic regression r-squared: %.4f' % regressor_quadratic.score(X_test_quadratic, y_test))
