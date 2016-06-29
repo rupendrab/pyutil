@@ -25,3 +25,8 @@ var_X = np.var(X.reshape(1,-1), ddof=1)
 print(var_X)
 cov_Xy = np.cov(X.reshape(1,-1), y.reshape(1,-1))[0][1]
 print(cov_Xy)
+## R-Square
+X_test = [[8], [9], [11], [16], [12]]
+y_test = [[11], [8.5], [15], [18], [11]]
+print('R-squared: %.4f' % model.score(X_test, y_test))
+
