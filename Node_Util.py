@@ -1,4 +1,3 @@
-<meta http-equiv="X-UA-Compatible" content="IE-10">
 
 arr = [3,1,4,6,8,7,10,13,14]
 arr2 = sorted(arr)
