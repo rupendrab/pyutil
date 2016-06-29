@@ -38,6 +38,9 @@ y = [[7], [9], [13], [17.5], [18]]
 coeffs = dot(inv(dot(transpose(X), X)), dot(transpose(X), y))
 print(coeffs)
 
+from numpy.linalg import lstsq
+print(lstsq(X, y)[0])
+
 X = [[6,2],[8,1],[10,0],[14,2],[18,0]]
 y = [[7],[9],[13],[17.5],[18]]
 model = LinearRegression()
