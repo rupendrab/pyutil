@@ -20,3 +20,8 @@ print("A 12"" inch pizza should cost: $%.2f" % model.predict([[12]])[0])
 print(model.coef_)
 print(model.intercept_)
 print('Residual sum of squares: %.2f' % np.mean((model.predict(X) - y) ** 2))
+
+var_X = np.var(X.reshape(1,-1), ddof=1)
+print(var_X)
+cov_Xy = np.cov(X.reshape(1,-1), y.reshape(1,-1))[0][1]
+print(cov_Xy)
