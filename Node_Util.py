@@ -70,4 +70,18 @@ def depthOfTree(root):
   if (root.right):
     heightRight = depthOfTree(root.right)
   return 1 + max(heightLeft, heightRight)
-  
+
+root = buildTestBst()
+print(root)
+# preOrderTraversal(root)
+print("Depth of tree = " + str(depthOfTree(root)))
+
+arrx = []
+buildArrayInOrderTraversal(root, arrx)
+# print(arrx)
+print(findVal(root, 10))
+print(findVal(root, 13))
+print(findVal(root, 15))
+print findVal(root, 2))
+print findVal(root, -1))
+
