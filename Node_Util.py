@@ -61,5 +61,13 @@ def findVal(root, val):
         return findVal(root.left, val)
       else:
         return False
-        
-        
+
+def depthOfTree(root):
+  heightLeft = 0
+  heightRight = 0
+  if (root.left):
+    heightLeft = depthOfTree(root.left)
+  if (root.right):
+    heightRight = depthOfTree(root.right)
+  return 1 + max(heightLeft, heightRight)
+  
