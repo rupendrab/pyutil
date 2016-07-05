@@ -48,3 +48,61 @@ print(vectorizer.vocabulary_)
 print('Distance between 1st and 2nd document: %0.4f' % euclidean_distances(counts[0], counts[1]))
 print('Distance between 1st and 3rd document: %0.4f' % euclidean_distances(counts[0], counts[2]))
 print('Distance between 2nd and 3rd document: %0.4f' % euclidean_distances(counts[1], counts[2]))
+
+######
+
+from sklearn.feature_extraction.text import CountVectorizer
+corpus = ['The dog ate a sandwich, the wizard transfigured a sandwich, and I ate a sandwich']
+vectorizer = CountVectorizer(stop_words = 'english')
+trans = vectorizer.fit_transform(corpus)
+print(trans.todense())
+print(vectorizer.vocabulary_)
+print(vectorizer.get_feature_names())
+counters = [(v[0], trans.todense()[0,v[1]]) for v in vectorizer.vocabulary_.items()]
+print(counters)
+counters = [(word, trans.todense()[0,pos]) for (word,pos) in vectorizer.vocabulary_.items()]
+print(counters)
+
+######
+
+## Use TF-IDF
+
+from sklearn.feature_extraction.text import TfidfVectorizer
+corpus = [
+    'The dog ate a sandwich and I ate a sandwich',
+    'The wizard transfigured a sandwich'
+]
+vectorizer = TfidfVectorizer(stop_words='english')
+
+print(vectorizer.fit_transform(corpus).todense())
+print(vectorizer.get_feature_names())
+
+######
+
+## Use hashing to prevent creating and maintaining a dictionary in memory
+from sklearn.feature_extraction.text import HashingVectorizer
+corpus = ['the', 'ate', 'bacon', 'cat']
+vectorizer = HashingVectorizer(n_features=6)
+print(vectorizer.transform(corpus).todense())
+
+######
+
+from sklearn import datasets
+digits = datasets.load_digits()
+print('Digit: ', digits.target[0])
+print(digits.images[0])
+print('Feature vector:\n', digits.images[0].reshape(-1,64))
+
+######
+
+from sklearn import preprocessing
+import numpy as np
+X = np.array(
+    [
+        [0., 0., 5., 13., 9., 1.],
+        [0., 0., 13., 15., 10., 15.],
+        [0., 3., 15., 2., 0., 11.]
+    ]
+)
+X1 = preprocessing.scale(X)
+print(X1)
