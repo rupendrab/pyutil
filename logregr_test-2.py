@@ -83,7 +83,7 @@ def summarize(x, y):
     prediction_stats[x][y] = prediction_stats[x][y] + 1
     1
     
-spamToSpam = [summarize(y_test[i], prediction) for i, prediction in enumerate(predictions)]
+spamToSpam = [summarize(y_test[i][0], prediction) for i, prediction in enumerate(predictions)]
 print(prediction_stats)
 
 ######
