@@ -6,7 +6,6 @@ print(df.size)
 # print(reduce(lambda x, y: x+y, range(1,101)))
 # print([(1 if line == "ham" else 0, 1 if line =="spam" else 0) for line in df[0]])
 (ham, spam) = reduce(lambda x,y: (x[0]+y[0],x[1]+y[1]),[(1 if line == "ham" else 0, 1 if line == "spam" else 0) for line in df[0]])
-print(counts)
 print('Number of spam messages: %d' % spam)
 print('Number of ham messages: %d' % ham)
 print('Number of spam messages: %d' % df[df[0] == "spam"][0].count())
@@ -109,3 +108,34 @@ print('Precision', np.mean(precisions), precisions)
 
 recalls = cross_val_score(classifier, X_train, y_train.ravel(), cv=5, scoring='recall')
 print('Recall', np.mean(recalls), recalls)
+
+######
+
+f1s = cross_val_score(classifier, X_train, y_train.ravel(), cv=5, scoring='f1')
+print('F1', np.mean(f1s), f1s)
+
+######
+
+## ROC (Receiver Operating Characteristics)
+%matplotlib inline
+from sklearn.metrics import roc_curve, auc
+
+predictions2 = classifier.predict_proba(X_test)
+# print(predictions2[:,1])
+false_positive_rate, recall, thresholds = roc_curve(y_test, predictions2[:,1])
+# print(false_positive_rate)
+# print(recall)
+# print(thresholds)
+roc_auc = auc(false_positive_rate, recall)
+print('AUC = %0.2f' % roc_auc)
+plt.title('Receiver Operating Characteristic')
+plt.plot(false_positive_rate, recall, 'b', label='AUC = %0.2f' % roc_auc)
+plt.legend(loc='lower right')
+plt.plot([0,1],[0,1], 'r--')
+plt.xlim([0.0, 1.0])
+plt.ylim([0.0, 1.0])
+plt.ylabel('Recall')
+plt.xlabel('Fall-out')
+
+plt.show()
+
