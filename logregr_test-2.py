@@ -139,3 +139,42 @@ plt.xlabel('Fall-out')
 
 plt.show()
 
+######
+
+## Using Grid Search to tune parameters
+
+from sklearn.grid_search import GridSearchCV
+from sklearn.pipeline import Pipeline
+from sklearn.metrics import precision_score, recall_score, accuracy_score
+
+pipeline = Pipeline([
+        ('vect',
+        TfidfVectorizer(stop_words='english')),
+        ('clf', LogisticRegression())
+    ])
+parameters = {
+    'vect__max_df': (0.25, 0.5, 0.75),
+    'vect__stop_words': ('english', None),
+    'vect__max_features': (2500, 5000, 10000, None),
+    'vect__ngram_range': ((1,1), (1,2)),
+    'vect__use_idf': (True, False),
+    'vect__norm': ('l1', 'l2'),
+    'clf__penalty': ('l1', 'l2'),
+    'clf__C': (0.01, 0.1, 1, 10)
+}
+grid_search = GridSearchCV(pipeline, parameters, n_jobs=-1, verbose=1, 
+                          scoring='accuracy', cv=3)
+## This one will take a while (7-15 minutes)
+grid_search.fit(X_train_raw, y_train.ravel())
+
+######
+
+print('Best score: %0.3f' % grid_search,best_score_)
+print('Best parameter set:')
+best_parameters = grid_search.best_estimator_.get_params()
+for param_name in sorted(best_parameters.keys()):
+   print('\t%s: %r' % (param_name, best_parameters[param_name]))
+predictions3 = grid_search.predict(X_test_raw)
+print('Accuracy:', accuracy_score(y_test, predictions))
+print('Precision:', precision_score(y_test, predictions))
+print('Recall:', recall_score(y_test, predictions))
