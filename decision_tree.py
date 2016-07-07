@@ -61,3 +61,30 @@ predictions = grid_search.predict(X_test)
 print(classification_report(y_test, predictions))
 
 ######
+
+### Using an ensemble method to improve performance, namely RandomForestClassifier
+
+from sklearn.ensemble import RandomForestClassifier
+pipeline = Pipeline([
+        ('clf', RandomForestClassifier(criterion='entropy'))
+    ])
+parameters = {
+    'clf__n_estimators': (5, 10, 20, 50),
+    'clf__max_depth': (50, 150, 250),
+    'clf__min_samples_split': (1, 2, 3),
+    'clf__min_samples_leaf': (1, 2, 3)
+}
+
+######
+
+grid_search = GridSearchCV(pipeline, parameters, n_jobs=-1, verbose=1, scoring='f1')
+grid_search.fit(X_train, y_train)
+
+######
+
+print('Best score: %0.3f' % grid_search.best_score_)
+best_parameters = grid_search.best_estimator_.get_params()
+for param_name in sorted(parameters.keys()):
+    print("\t%s: %r" %(param_name, best_parameters[param_name]))
+predictions = grid_search.predict(X_test)
+print(classification_report(y_test, predictions))
