@@ -51,3 +51,41 @@ x = X_transposed[0]
 y = X_transposed[1]
 plt.scatter(x, y, c=labels.astype(np.int))
 plt.show()
+
+######
+
+# Use silhouette coefficient to evaluate kmeans
+
+%matplotlib inline
+from sklearn import metrics
+
+x1 = np.array([1,2,3,1,5,6,5,5,6,7,8,9,7,9])
+x2 = np.array([1,3,2,2,8,6,7,6,7,1,2,1,1,3])
+X = np.array(list(zip(x1,x2))).reshape(len(X), 2)
+
+plt.subplots_adjust(left=1, bottom=None, right=3, top=2,
+                wspace=None, hspace=None)
+
+plt.subplot(3, 2, 1)
+plt.xlim([0, 10])
+plt.ylim([0, 10])
+plt.title('Instances')
+plt.scatter(x1, x2)
+colors = ['b', 'g', 'r', 'c', 'm', 'y', 'k', 'b']
+markers = ['o', 's', 'D', 'v', '^', 'p', '*', '+']
+tests = [2,3,4,5,8]
+
+subplot_counter = 1
+for t in tests:
+    subplot_counter += 1
+    plt.subplot(3, 2, subplot_counter)
+    kmeans_model = KMeans(n_clusters=t).fit(X)
+    for i, l in enumerate(kmeans_model.labels_):
+        plt.plot(x1[i], x2[i], color=colors[l], marker=markers[l], ls='None')
+    plt.xlim([0, 10])
+    plt.ylim([0, 10])
+    plt.title('K = %s, silhouette coefficient = %.03f' % 
+              (t, metrics.silhouette_score(X, 
+                                           kmeans_model.labels_,
+                                           metric = 'euclidean')))
+plt.show()
