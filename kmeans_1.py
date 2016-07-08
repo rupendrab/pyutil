@@ -46,5 +46,8 @@ labels = kmeans_2.labels_
 # print(X)
 x = [x[0] for x in X]
 y = [x[1] for x in X]
+X_transposed = X.T
+x = X_transposed[0]
+y = X_transposed[1]
 plt.scatter(x, y, c=labels.astype(np.int))
 plt.show()
