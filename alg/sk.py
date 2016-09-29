@@ -156,6 +156,7 @@ def solve_until_done(arr, pos_arr, trial_pos = [-1,-1,-1], debug = True):
                 t_arr = copy.deepcopy(last_arr)
                 next_pos = compute_next_pos(last_pos_arr, last_pos)
                 n_pos_arr = copy.deepcopy(last_pos_arr)
+                call_stack.append((last_arr, last_pos_arr, next_pos))
                 if debug:
                     print("Compute Next Pos:", last_pos, next_pos)
 
