@@ -153,6 +153,11 @@ def solve_until_done(arr, pos_arr, trial_pos = [-1,-1,-1], debug = True):
         except Exception as e:
             if str(e) == 'Unslovable position reached...':
                 last_arr, last_pos_arr, last_pos = call_stack.pop()
+                
+                ## Keep popping until we find one where there is another to try
+                while last_pos[2] == len(last_pos_arr[last_pos[0]][last_pos[1]]) - 1:
+                    last_arr, last_pos_arr, last_pos = call_stack.pop()
+                
                 t_arr = copy.deepcopy(last_arr)
                 next_pos = compute_next_pos(last_pos_arr, last_pos)
                 n_pos_arr = copy.deepcopy(last_pos_arr)
